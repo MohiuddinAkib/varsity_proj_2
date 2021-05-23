@@ -2,52 +2,14 @@
 
 namespace App\Contract;
 
-use App\Models\Cow;
-use App\Models\Farm;
-use App\Models\Breed;
-use App\Services\CowService;
-use Illuminate\Validation\Rule;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-
 interface ICowService
 {
-    const MALE = 0;
-    const FEMALE = 1;
+    const MALE = "male";
+    const FEMALE = "female";
+    const TYPE_DAIRY = "dairy";
+    const TYPE_FATTENING = "fattening";
 
-    const FARM_COW_IMAGE_DIR = "farms/cows";
-    const FARM_COW_IMAGE_DISK = "public";
+    public function create(string $name, int $breed_id, int $farm_id, string $gender, string $description, string $dob, string $type);
 
-    /**
-     * @param string $name
-     * @param Breed|int $breed_id
-     * @param Farm|int $farm_id
-     * @param int $gender
-     * @param UploadedFile $image
-     * @param string $description
-     * @param $dob
-     * @param string $extras
-     * @return bool
-     */
-    public function create(string $name, $breed_id, $farm_id, int $gender, UploadedFile $image, string $description, $dob, string $extras);
-
-    /**
-     * @param string $name
-     * @param Breed|int $breed_id
-     * @param Farm|int $farm_id
-     * @param int $gender
-     * @param UploadedFile $image
-     * @param string $description
-     * @param $dob
-     * @param string $extras
-     * @return bool
-     */
-    public function update(string $name, $breed_id, $farm_id, int $gender, UploadedFile $image, string $description, $dob, string $extras);
-
-    /**
-     * @param Cow|int $cow
-     * @return ICowService
-     */
-    public function forCow($cow);
+    public function update(int $cow_id, string $name, int $breed_id, int $farm_id, string $gender, string $description, string $dob, string $type);
 }

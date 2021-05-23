@@ -6,114 +6,53 @@ namespace App\Services;
 use App\Models\Farm;
 use App\Models\User;
 use App\Contract\IFarmService;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 
 class FarmService implements IFarmService
 {
-    /**
-     * @var Farm|null $farm
-     */
-    public $farm;
 
-    /**
-     * @var string $imagePath
-     */
-    public $imagePath;
-
-    /**
-     * @param Farm|int $farm
-     * @return IFarmService
-     */
-    public function forFarm($farm)
+    public function assignLocalAdmin(int $farm_id, int $user_id)
     {
-        $this->farm = $farm;
+        $farm = Farm::findOrFail($farm_id);
+        $user = User::findOrFail($user_id);
 
-        if (is_int($this->farm)) {
-            $this->farm = Farm::findOrFail($this->farm);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Farm|null
-     */
-    public function getFarmModelInstance()
-    {
-        return $this->farm;
-    }
-
-    /**
-     * @param User|int $user
-     * @return boolean
-     */
-    public function assignLocalAdmin($user)
-    {
-        if (is_null($this->farm)) {
+        if ($user->farm_id !== $farm_id) {
             return false;
-        }
+        };
 
-        if (is_int($user)) {
-            $user = User::findOrFail($user);
-        }
-
-        $this->farm->localAdmin->removeRole("localadmin");
-
+        $farm->localAdmin->removeRole("localadmin");
         $user->assignRole("localadmin");
 
         return true;
     }
 
-    /**
-     * @return boolean
-     */
-    public function removeLocalAdmin()
-    {
-        if (is_null($this->farm)) {
-            return false;
-        }
 
-        $this->farm->localAdmin->removeRole("localadmin");
+    public function removeLocalAdmin(int $farm_id)
+    {
+        $farm = Farm::findOrFail($farm_id);
+
+        $farm->localAdmin->removeRole("localadmin");
 
         return true;
     }
 
-    /**
-     * @param string $name
-     * @param string $city
-     * @param string $area
-     * @param string $address
-     * @param string $region
-     * @param DateTime|string $established_at
-     * @param DateTime|string|null $closed_at
-     * @param UploadedFile $image
-     */
-    public function create(string $name, string $city, string $area, string $address, string $region, $established_at, $closed_at, UploadedFile $image)
+    public function create(string $name, string $location, int $owner_id, string $establish_date, int|null $ladmin_id)
     {
-        $input = compact("name", "city", "area", "address", "region", "established_at", "closed_at", "image");
+        $input = compact("name", "location", "owner_id", "establish_date", "ladmin_id");
 
         $validator = Validator::make($input, [
             "name" => "required|string",
-            "city" => "required|string",
-            "area" => "required|string",
-            "address" => "required|string",
-            "region" => "required|string",
-            "image" => "required|image|max:1024",
-            "closed_at" => "nullable|date|after:established_at",
-            "established_at" => "required|date|before:closed_at",
+            "location" => "required|string",
+            "established_at" => "required|date",
+            "owner_id" => "required|exists:App\Models\User,id",
+            "ladmin_id" => "nullable|exists:App\Models\User,id",
         ]);
 
         if ($validator->fails()) {
             return false;
         }
 
-        $farm = Farm::create($validator->validated());
-        $this->imagePath = $image->store(self::FARM_IMAGE_DIR, self::FARM_IMAGE_DISK);
-
-        $farm->image()->create([
-            "url" => $this->imagePath
-        ]);
+        Farm::create($validator->validated());
 
         return true;
     }
