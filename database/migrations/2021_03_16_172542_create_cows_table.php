@@ -20,7 +20,7 @@ class CreateCowsTable extends Migration
             $table->mediumText("description");
             $table->dateTime("dob");
             $table->foreignId("farm_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("breed_id")->constrained()->nullOnDelete();
+//            $table->foreignId("breed_id")->constrained()->nullOnDelete();
             $table->unsignedInteger("gender");
             $table->timestamps();
             $table->softDeletes();

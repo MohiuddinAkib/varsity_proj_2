@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Contract\ICowService;
 use App\Contract\IFarmService;
-use App\Contract\IPostService;
 use App\Services\CowService;
 use App\Services\FarmService;
 use App\Services\PostService;
@@ -35,6 +34,5 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ICowService::class, CowService::class);
         $this->app->bind(IFarmService::class, FarmService::class);
-        $this->app->bind(IPostService::class, PostService::class);
     }
 }

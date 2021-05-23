@@ -227,7 +227,6 @@ return [
         "Validator" => Illuminate\Support\Facades\Validator::class,
         "View" => Illuminate\Support\Facades\View::class,
         "Farm" => App\Facades\Farm::class,
-        "Post" => App\Facades\Post::class,
         "Cow" => App\Facades\Cow::class,
     ],
 

@@ -6,10 +6,10 @@ use App\Models\Cow;
 use App\Models\Farm;
 use App\Models\Breed;
 use App\Services\CowService;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 interface ICowService
 {

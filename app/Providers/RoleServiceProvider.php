@@ -32,17 +32,12 @@ class RoleServiceProvider extends ServiceProvider
             if (DB::connection()->getDatabaseName() && Schema::hasTable("roles")) {
                 if (Role::whereName("superadmin")->doesntExist())
                     Artisan::call("permission:create-role superadmin");
+                if (Role::whereName("hostadmin")->doesntExist())
+                    Artisan::call("permission:create-role hostadmin");
                 if (Role::whereName("localadmin")->doesntExist())
                     Artisan::call("permission:create-role localadmin");
                 if (Role::whereName("employee")->doesntExist())
                     Artisan::call("permission:create-role employee");
-
-                if (Role::whereName("cattle")->doesntExist())
-                    Artisan::call("permission:create-role cattle");
-                if (Role::whereName("dairy")->doesntExist())
-                    Artisan::call("permission:create-role dairy");
-                if (Role::whereName("fattening")->doesntExist())
-                    Artisan::call("permission:create-role fattening");
             }
         } catch (\Doctrine\DBAL\Driver\PDO\Exception $e) {
 

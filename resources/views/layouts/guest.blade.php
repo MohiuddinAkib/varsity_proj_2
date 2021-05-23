@@ -11,14 +11,23 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+        <livewire:styles/>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        @stack("styles")
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        <!-- Scripts -->
+        <livewire:scripts/>
+        <script src="{{ asset('js/app.js') }}"></script>
+        @stack("scripts")
     </body>
 </html>
