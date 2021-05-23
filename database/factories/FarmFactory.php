@@ -22,13 +22,7 @@ class FarmFactory extends Factory
     public function definition()
     {
         return [
-            "city" => $this->faker->city,
-            "name" => $this->faker->company,
-            "region" => $this->faker->state,
-            "area" => $this->faker->areaCode,
-            "address" => $this->faker->address,
-            "closed_at" => $this->faker->dateTimeBetween($startDate = '-2years', $endDate = 'now', $timezone = null),
-            "established_at" => $this->faker->dateTimeBetween($startDate = '-30 years', $endDate = '-2years', $timezone = null),
+
         ];
     }
 }

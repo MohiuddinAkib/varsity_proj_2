@@ -34,17 +34,4 @@ class Farm extends Model
     {
         return $this->hasOne(User::class)->role("localadmin");
     }
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    /**
-     * Get the post's image.
-     */
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
 }

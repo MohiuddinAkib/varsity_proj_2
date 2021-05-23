@@ -14,7 +14,7 @@ class AddFarmIdOnUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId("farm_id")->nullable()->constrained();
+            $table->foreignId("farm_id")->nullable()->constrained()->cascadeOnDelete();
         });
     }
 
@@ -26,7 +26,7 @@ class AddFarmIdOnUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign(["farm_id"]);
         });
     }
 }

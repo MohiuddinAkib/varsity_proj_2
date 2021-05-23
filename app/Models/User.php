@@ -62,33 +62,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes["password"] = bcrypt($value);
     }
 
-    public function providers()
-    {
-        return $this->hasMany("App\Models\Provider");
-    }
-
-    /**
-     * Get the profile for the user.
-     */
-    public function profile()
-    {
-        return $this->hasOne("App\Models\Profile");
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany("App\Models\Address");
-    }
-
     public function farm()
     {
         return $this->belongsTo("App\Models\Farm");
-    }
-
-
-    public function image()
-    {
-        return $this->hasOneThrough(Image::class, Profile::class, "user_id", "imageable_id")
-            ->where('imageable_type', Profile::class);
     }
 }

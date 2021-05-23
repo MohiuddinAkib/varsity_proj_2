@@ -15,13 +15,13 @@ class CreateCowsTable extends Migration
     {
         Schema::create('cows', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->mediumText("extras");
-            $table->mediumText("description");
-            $table->dateTime("dob");
             $table->foreignId("farm_id")->constrained()->cascadeOnDelete();
-//            $table->foreignId("breed_id")->constrained()->nullOnDelete();
-            $table->unsignedInteger("gender");
+            $table->string("name");
+            $table->unsignedInteger("weight");
+            $table->enum("type", ["dairy", "fattening"]);
+            $table->enum("gender", ["male", "female"]);
+            $table->mediumText("description");
+            $table->timestamp("dob");
             $table->timestamps();
             $table->softDeletes();
         });

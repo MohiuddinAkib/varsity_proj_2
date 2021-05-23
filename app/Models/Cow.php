@@ -20,12 +20,4 @@ class Cow extends Model
         "breed_id",
         "gender",
     ];
-
-    /**
-     * Get the post's image.
-     */
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
 }

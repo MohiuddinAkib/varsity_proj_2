@@ -16,12 +16,11 @@ class CreateFarmsTable extends Migration
         Schema::create('farms', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("city");
-            $table->string("area");
-            $table->string("region");
-            $table->string("address");
-            $table->datetime("established_at");
-            $table->datetime("closed_at")->nullable();
+            $table->string("location");
+            $table->string("contact_number")->nullable();
+            $table->foreignId("owner_id")->constrained("users")->cascadeOnDelete();
+            $table->foreignId("ladmin_id")->nullable()->constrained("users")->nullOnDelete();
+            $table->timestamp("establish_date");
             $table->timestamps();
             $table->softDeletes();
         });
