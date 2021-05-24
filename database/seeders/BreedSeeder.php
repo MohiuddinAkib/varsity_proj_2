@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Breed;
 use Illuminate\Database\Seeder;
 
 class BreedSeeder extends Seeder
@@ -13,6 +14,8 @@ class BreedSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Breed::factory()
+            ->count(20)
+            ->create();
     }
 }

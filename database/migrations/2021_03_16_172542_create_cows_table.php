@@ -20,7 +20,7 @@ class CreateCowsTable extends Migration
             $table->unsignedInteger("weight");
             $table->enum("type", ["dairy", "fattening"]);
             $table->enum("gender", ["male", "female"]);
-            $table->mediumText("description");
+            $table->mediumText("description")->nullable();
             $table->timestamp("dob");
             $table->timestamps();
             $table->softDeletes();

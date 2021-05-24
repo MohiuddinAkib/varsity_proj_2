@@ -23,6 +23,7 @@ class CreatePaymentsTable extends Migration
             $table->mediumText("payment_bonus_reason")->nullable();
             $table->mediumText("payment_cut_reason")->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

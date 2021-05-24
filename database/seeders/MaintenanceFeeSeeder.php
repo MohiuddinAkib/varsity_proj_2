@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MaintenanceFee;
 use Illuminate\Database\Seeder;
 
 class MaintenanceFeeSeeder extends Seeder
@@ -13,6 +14,8 @@ class MaintenanceFeeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        MaintenanceFee::factory()
+            ->count(20)
+            ->create();
     }
 }

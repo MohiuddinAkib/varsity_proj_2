@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Farm;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FarmFactory extends Factory
@@ -22,7 +23,10 @@ class FarmFactory extends Factory
     public function definition()
     {
         return [
-
+            "name" => $this->faker->company,
+            "location" => $this->faker->address,
+            "contact_number" => $this->faker->phoneNumber,
+            "establish_date" => $this->faker->dateTimeBetween(),
         ];
     }
 }

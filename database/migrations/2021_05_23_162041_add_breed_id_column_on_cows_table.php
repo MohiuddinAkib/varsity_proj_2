@@ -14,7 +14,7 @@ class AddBreedIdColumnOnCowsTable extends Migration
     public function up()
     {
         Schema::table('cows', function (Blueprint $table) {
-            $table->foreignId("breed_id")->after("farm_id")->constrained()->nullOnDelete();
+            $table->foreignId("breed_id")->after("farm_id")->constrained();
         });
     }
 
