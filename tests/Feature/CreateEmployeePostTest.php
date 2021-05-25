@@ -13,7 +13,7 @@ use function Pest\Laravel\assertDatabaseCount;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
-uses()->group("Farm Post Management For Employees");
+uses()->group("Farm User Management For Employees");
 
 test("Non superadmin or non localadmin is forbidden to create post", function () {
     $employee = actingAsEmployee();

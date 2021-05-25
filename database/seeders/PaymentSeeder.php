@@ -15,7 +15,7 @@ class PaymentSeeder extends Seeder
      */
     public function run()
     {
-        User::role("employee")
+        $users = User::role("employee")
             ->get()
             ->each(function (User $user) {
                 Payment::factory()

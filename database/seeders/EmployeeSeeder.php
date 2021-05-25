@@ -20,9 +20,8 @@ class EmployeeSeeder extends Seeder
             ->count(50)
             ->create()
             ->each(function (User $user) use ($faker) {
-                $employee_roles = [$faker->randomElement(["cleaner", "feeder", "sweeper", "hay_cutter", "guard", "localadmin"])];
-                $employee_roles += ["employee"];
-                $user->assignRole($employee_roles);
+                $employee_role = $faker->randomElement(["cleaner", "feeder", "sweeper", "hay_cutter", "guard", "localadmin"]);
+                $user->assignRole("employee", $employee_role);
             });
 
 

@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class HealthCondition extends Model
 {
     use HasFactory;
 
-    public function worker()
-    {
-        return $this->belongsTo(User::class, "worker_id", "id");
+    public function cow() {
+        return $this->belongsTo(Cow::class);
     }
 }

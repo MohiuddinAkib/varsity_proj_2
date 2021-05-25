@@ -34,4 +34,9 @@ class Farm extends Model
     {
         return $this->hasOne(User::class)->role("localadmin");
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, "owner_id", "id");
+    }
 }

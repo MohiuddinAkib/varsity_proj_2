@@ -228,6 +228,7 @@ return [
         "View" => Illuminate\Support\Facades\View::class,
         "Farm" => App\Facades\Farm::class,
         "Cow" => App\Facades\Cow::class,
+        "User" => App\Facades\User::class,
     ],
 
 ];

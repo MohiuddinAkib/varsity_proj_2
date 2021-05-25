@@ -17,12 +17,12 @@ return [
      * Here you can whitelist model relations.
      *
      * Right now, you need to define the model relation both as the class name and the attribute name on the model.
-     * So if an "Author" model would have a "posts" relation that points to a "Post" class, you need to add both
-     * the "posts" attribute and the "Post::class", since the relation can get resolved in multiple ways.
+     * So if an "Author" model would have a "posts" relation that points to a "User" class, you need to add both
+     * the "posts" attribute and the "User::class", since the relation can get resolved in multiple ways.
      */
     'except' => [
         //Author::class => [
-        //    Post::class,
+        //    User::class,
         //    'posts',
         //]
     ],

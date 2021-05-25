@@ -15119,6 +15119,43 @@
         }
          
     }
+            /**
+     * 
+     *
+     */ 
+        class User {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function createSuperAdmin($name, $email, $password)
+        {
+                        /** @var \App\Services\UserService $instance */
+                        return $instance->createSuperAdmin($name, $email, $password);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function createHostAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address)
+        {
+                        /** @var \App\Services\UserService $instance */
+                        return $instance->createHostAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function createLocalAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address)
+        {
+                        /** @var \App\Services\UserService $instance */
+                        return $instance->createLocalAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address);
+        }
+         
+    }
      
 }
 
@@ -19259,6 +19296,7 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Farm extends \App\Facades\Farm {}
             class Cow extends \App\Facades\Cow {}
+            class User extends \App\Facades\User {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class Livewire extends \Livewire\Livewire {}
