@@ -22,6 +22,9 @@ class FarmService implements IFarmService
 
         $farm->localAdmin->removeRole("localadmin");
         $user->assignRole("localadmin");
+        $farm->update([
+            "contact_number" => $user->contact_number
+        ]);
 
         return true;
     }
@@ -38,22 +41,14 @@ class FarmService implements IFarmService
 
     public function create(string $name, string $location, int $owner_id, string $establish_date, int|null $ladmin_id)
     {
-        $input = compact("name", "location", "owner_id", "establish_date", "ladmin_id");
+        $input = compact("name", "location", "owner_id", "establish_date");
 
-        $validator = Validator::make($input, [
-            "name" => "required|string",
-            "location" => "required|string",
-            "established_at" => "required|date",
-            "owner_id" => "required|exists:App\Models\User,id",
-            "ladmin_id" => "nullable|exists:App\Models\User,id",
-        ]);
+        $farm = Farm::create($input);
 
-        if ($validator->fails()) {
-            return false;
+        if (!is_null($ladmin_id)) {
+            $this->assignLocalAdmin($farm->id, $ladmin_id);
         }
 
-        Farm::create($validator->validated());
-
-        return true;
+        return $farm;
     }
 }

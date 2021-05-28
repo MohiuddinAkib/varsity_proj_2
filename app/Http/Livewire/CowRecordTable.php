@@ -15,7 +15,9 @@ class CowRecordTable extends LivewireDatatable
 
     public function builder()
     {
-        return Cow::query();
+        $farm_ids = auth()->user()->farms->map->id;
+
+        return Cow::query()->whereIn("farm_id", $farm_ids);
     }
 
     public function columns()

@@ -12,7 +12,9 @@ class WorkerStatusTable extends LivewireDatatable
 {
     public function builder()
     {
-        return User::query()->role("employee");
+        $farm_ids = auth()->user()->farms->map->id;
+
+        return User::query()->role("employee")->whereIn("farm_id", $farm_ids);
     }
 
     public function columns()

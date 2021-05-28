@@ -16,36 +16,55 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('hostadmin.index')" :active="request()->routeIs('hostadmin.index')">
-                        {{ __('Host admin') }}
-                    </x-nav-link>
 
-                    <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
-                        {{ __('Payment status') }}
-                    </x-nav-link>
+                    @role("superadmin")
+                        <x-nav-link :href="route('hostadmin.index')" :active="request()->routeIs('hostadmin.index')">
+                            {{ __('Host admin') }}
+                        </x-nav-link>
+                    @endrole
 
-                    <x-nav-link :href="route('farm.index')" :active="request()->routeIs('farm.index')">
-                        {{ __('Farm list') }}
-                    </x-nav-link>
+                    @role("hostadmin")
+                        <x-nav-link :href="route('localadmin.index')" :active="request()->routeIs('localadmin.index')">
+                            {{ __('Local admin') }}
+                        </x-nav-link>
+                    @endrole
 
-                    <x-nav-link :href="route('cow.index')" :active="request()->routeIs('cow.index')">
-                        {{ __('Cow record') }}
-                    </x-nav-link>
+                    @hasanyrole("hostadmin|localadmin")
+                        <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
+                            {{ __('Payment status') }}
+                        </x-nav-link>
+                    @endhasanyrole
 
-                    <x-nav-link :href="route('maintenance_fee.index')"
-                                :active="request()->routeIs('maintenance_fee.index')">
-                        {{ __('Maintenance fees') }}
-                    </x-nav-link>
+                    @role("hostadmin")
+                        <x-nav-link :href="route('farm.index')" :active="request()->routeIs('farm.index')">
+                            {{ __('Farm list') }}
+                        </x-nav-link>
+                    @endrole
 
-                    <x-nav-link :href="route('worker_status.index')"
-                                :active="request()->routeIs('worker_status.index')">
-                        {{ __('Worker status') }}
-                    </x-nav-link>
+                    @hasanyrole("hostadmin|localadmin")
+                        <x-nav-link :href="route('cow.index')" :active="request()->routeIs('cow.index')">
+                            {{ __('Cow record') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('health_condition.index')"
-                                :active="request()->routeIs('health_condition.index')">
-                        {{ __('Health condition') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('maintenance_fee.index')"
+                                    :active="request()->routeIs('maintenance_fee.index')">
+                            {{ __('Maintenance fees') }}
+                        </x-nav-link>
+                    @endhasanyrole
+
+                    @role("hostadmin")
+                        <x-nav-link :href="route('worker_status.index')"
+                                    :active="request()->routeIs('worker_status.index')">
+                            {{ __('Worker status') }}
+                        </x-nav-link>
+                    @endrole
+
+                    @hasanyrole("hostadmin|localadmin")
+                        <x-nav-link :href="route('health_condition.index')"
+                                    :active="request()->routeIs('health_condition.index')">
+                            {{ __('Health condition') }}
+                        </x-nav-link>
+                    @endhasanyrole
                 </div>
             </div>
 

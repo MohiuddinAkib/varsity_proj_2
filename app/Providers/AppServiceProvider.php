@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Form;
 use App\Contract\ICowService;
 use App\Contract\IFarmService;
 use App\Contract\IUserService;
+
 use App\Services\CowService;
 use App\Services\FarmService;
 use App\Services\UserService;
@@ -23,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
-
     }
 
     /**
@@ -36,5 +37,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ICowService::class, CowService::class);
         $this->app->bind(IFarmService::class, FarmService::class);
         $this->app->bind(IUserService::class, UserService::class);
+
+//        Form::macro("myField", function ($params) {
+//            return '<input type="awesome">';
+//        });
     }
 }

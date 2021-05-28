@@ -12,12 +12,10 @@ class Farm extends Model
 
     protected $fillable = [
         "name",
-        "city",
-        "area",
-        "region",
-        "address",
-        "closed_at",
-        "established_at",
+        "location",
+        "contact_number",
+        "owner_id",
+        "establish_date",
     ];
 
     protected $casts = [
@@ -32,7 +30,7 @@ class Farm extends Model
 
     public function localadmin()
     {
-        return $this->hasOne(User::class)->role("localadmin");
+        return $this->belongsTo(User::class, "ladmin_id", "id");
     }
 
     public function owner()

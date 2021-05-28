@@ -30,7 +30,7 @@ Route::get('/payment', \App\Http\Livewire\PaymentStatusList::class)
     ->name('payment.index');
 
 Route::get('/cow-create', \App\Http\Livewire\CowRecordCreate::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:localadmin"])
     ->name('cow.create');
 
 Route::get('/cow', \App\Http\Livewire\CowRecordList::class)
@@ -50,15 +50,28 @@ Route::get('/health_condition', \App\Http\Livewire\HealthConditionList::class)
     ->name('health_condition.index');
 
 Route::get('/farm', \App\Http\Livewire\FarmList::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:hostadmin"])
     ->name('farm.index');
 
+
+Route::get('/farm-create', \App\Http\Livewire\FarmCreate::class)
+    ->middleware(["auth", "role:hostadmin"])
+    ->name('farm.create');
+
 Route::get('/hostadmin', \App\Http\Livewire\HostAdminList::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:superadmin"])
     ->name('hostadmin.index');
 
 Route::get('/hostadmin-create', \App\Http\Livewire\HostAdminCreate::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:superadmin"])
     ->name('hostadmin.create');
+
+Route::get('/localadmin', \App\Http\Livewire\LocalAdminList::class)
+    ->middleware(["auth", "role:hostadmin"])
+    ->name('localadmin.index');
+
+Route::get('/localadmin-create', \App\Http\Livewire\LocalAdminCreate::class)
+    ->middleware(["auth", "role:hostadmin"])
+    ->name('localadmin.create');
 
 

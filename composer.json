@@ -19,6 +19,7 @@
         "laravel/sanctum": "^2.8",
         "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.5",
+        "laravelcollective/html": "^6.2",
         "livewire/livewire": "^2.3",
         "mediconesystems/livewire-datatables": "dev-master",
         "pusher/pusher-php-server": "~6.1",

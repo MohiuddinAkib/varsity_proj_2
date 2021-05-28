@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Contract\IUserRole;
 use App\Models\Breed;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -16,23 +17,23 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        if (Role::whereName("superadmin")->doesntExist())
-            Artisan::call("permission:create-role superadmin");
-        if (Role::whereName("hostadmin")->doesntExist())
-            Artisan::call("permission:create-role hostadmin");
-        if (Role::whereName("localadmin")->doesntExist())
-            Artisan::call("permission:create-role localadmin");
-        if (Role::whereName("employee")->doesntExist())
-            Artisan::call("permission:create-role employee");
-        if (Role::whereName("cleaner")->doesntExist())
-            Artisan::call("permission:create-role cleaner");
-        if (Role::whereName("feeder")->doesntExist())
-            Artisan::call("permission:create-role feeder");
-        if (Role::whereName("sweeper")->doesntExist())
-            Artisan::call("permission:create-role sweeper");
-        if (Role::whereName("hay_cutter")->doesntExist())
-            Artisan::call("permission:create-role hay_cutter");
-        if (Role::whereName("guard")->doesntExist())
-            Artisan::call("permission:create-role guard");
+        if (Role::whereName(IUserRole::SUPER_ADMIN)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::SUPER_ADMIN);
+        if (Role::whereName(IUserRole::HOST_ADMIN)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::HOST_ADMIN);
+        if (Role::whereName(IUserRole::LOCAL_ADMIN)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::LOCAL_ADMIN);
+        if (Role::whereName(IUserRole::EMPLOYEE)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::EMPLOYEE);
+        if (Role::whereName(IUserRole::CLEANER)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::CLEANER);
+        if (Role::whereName(IUserRole::FEEDER)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::FEEDER);
+        if (Role::whereName(IUserRole::SWEEPER)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::SWEEPER);
+        if (Role::whereName(IUserRole::HAY_CUTTER)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::HAY_CUTTER);
+        if (Role::whereName(IUserRole::GUARD)->doesntExist())
+            Artisan::call("permission:create-role " . IUserRole::GUARD);
     }
 }

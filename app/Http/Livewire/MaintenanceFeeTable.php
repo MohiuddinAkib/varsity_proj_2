@@ -14,7 +14,13 @@ class MaintenanceFeeTable extends LivewireDatatable
 
     public function builder()
     {
-        return MaintenanceFee::query()->whereMonth("date_of_incident", now()->month);
+        $farm_ids = [auth()->user()->farm?->id];
+
+        if (auth()->user()->hasRole("hostadmin")) {
+            $farm_ids = auth()->user()->farms->map->id;
+        }
+
+        return MaintenanceFee::query()->whereMonth("date_of_incident", now()->month)->whereIn("farm_id", $farm_ids);
     }
 
     public function columns()

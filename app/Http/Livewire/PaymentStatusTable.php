@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Carbon\Carbon;
 use App\Models\Farm;
 use App\Models\Payment;
+use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\TimeColumn;
@@ -19,7 +20,13 @@ class PaymentStatusTable extends LivewireDatatable
 
     public function builder()
     {
-        return Payment::query()->whereMonth("payment_date", now()->month);
+        $farm_ids = auth()->user()->farms->map->id;
+
+        return Payment::query()
+            ->whereMonth("payment_date", now()->month)
+            ->whereHas("worker", function (Builder $query) use ($farm_ids) {
+                $query->whereIn("farm_id", $farm_ids);
+            });
     }
 
     public function columns()
@@ -30,7 +37,7 @@ class PaymentStatusTable extends LivewireDatatable
                 ->label("Worker name")->filterable(),
             Column::name("worker.farm.name")
                 ->label("Worker farm")
-            ->filterable($this->farms),
+                ->filterable($this->farms),
             Column::name("payment_status")
                 ->label("Status")
                 ->filterable(["paid", "unpaid"]),
