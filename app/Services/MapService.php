@@ -32,7 +32,7 @@ class MapService implements IMapService
 
     public function search_nearby_veterinaries(int $radius, int $latitude, int $longitude)
     {
-        return Http::get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json", [
+        $response = Http::get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json", [
             "radius" => $radius,
             "key" => $this->api_token,
             "location" => "{$latitude}, {$longitude}",
@@ -41,7 +41,10 @@ class MapService implements IMapService
                 "circle:" => "{$radius}@{$latitude}{$longitude}"
             ]
         ])
-            ->throw()
-            ->json();
+            ->throw();
+
+        throw_if(in_array($response->json("status"), ["REQUEST_DENIED", "UNKNOWN_ERROR", "INVALID_REQUEST", "OVER_QUERY_LIMIT"]), new \Exception($response->json("error_message")));
+
+        return $response->json();
     }
 }

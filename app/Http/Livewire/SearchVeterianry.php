@@ -31,10 +31,10 @@ class SearchVeterianry extends Component
         if (!is_null($this->radius)) {
             $this->is_loading = true;
             try {
-                Map::search_nearby_veterinaries($this->radius, $this->latitude, $this->longitude);
+                $response = (Map::search_nearby_veterinaries($this->radius, $this->latitude, $this->longitude));
 
             } catch (\Exception $e) {
-                dd($e->getMessage());
+                dd($e);
             } finally {
                 $this->is_loading = false;
             }
