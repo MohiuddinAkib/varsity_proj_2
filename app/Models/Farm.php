@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Map;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Farm extends Model
 {
@@ -16,6 +17,8 @@ class Farm extends Model
         "contact_number",
         "owner_id",
         "establish_date",
+        "latitude",
+        "longitude",
     ];
 
     protected $casts = [
@@ -36,5 +39,17 @@ class Farm extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, "owner_id", "id");
+    }
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        self::creating(function(Farm $model) {
+            $response = Map::geocode_from_location($model->location);
+//            dd($response);
+            $model->latitude = 0;
+            $model->longitude = 0;
+        });
     }
 }

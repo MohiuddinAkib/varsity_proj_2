@@ -89,4 +89,8 @@ Route::get('/localadmin-create', \App\Http\Livewire\LocalAdminCreate::class)
     ->middleware(["auth", "role:hostadmin"])
     ->name('localadmin.create');
 
+Route::get('/search-veterinary', \App\Http\Livewire\SearchVeterianry::class)
+    ->middleware(["auth", "role:localadmin"])
+    ->name('search_veterianry.index');
+
 

@@ -16,6 +16,12 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    @role("localadmin")
+                    <x-nav-link :href="route('search_veterianry.index')" :active="request()->routeIs('search_veterianry.index')">
+                        {{ __('Search Veterinary') }}
+                    </x-nav-link>
+                    @endrole
+
 
                     @role("superadmin")
                         <x-nav-link :href="route('hostadmin.index')" :active="request()->routeIs('hostadmin.index')">

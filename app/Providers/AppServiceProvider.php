@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contract\IMapService;
+use App\Services\MapService;
 use Form;
 use App\Contract\ICowService;
 use App\Contract\IFarmService;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->bind(IMapService::class, MapService::class);
         $this->app->bind(ICowService::class, CowService::class);
         $this->app->bind(IFarmService::class, FarmService::class);
         $this->app->bind(IUserService::class, UserService::class);

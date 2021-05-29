@@ -232,6 +232,7 @@ return [
         "Farm" => App\Facades\Farm::class,
         "Cow" => App\Facades\Cow::class,
         "User" => App\Facades\User::class,
+        "Map" => App\Facades\Map::class,
     ],
 
 ];

@@ -14,8 +14,8 @@ class AddLatitudeColumnAndLongitudeColumnOnFarmsTable extends Migration
     public function up()
     {
         Schema::table('farms', function (Blueprint $table) {
-            $table->integer("latitude")->after("establish_date");
-            $table->integer("longitude")->after("latitude");
+            $table->decimal("latitude")->after("establish_date");
+            $table->decimal("longitude")->after("latitude");
         });
     }
 
