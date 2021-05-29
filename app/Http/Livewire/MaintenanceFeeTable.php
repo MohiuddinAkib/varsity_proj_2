@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Contract\IUserRole;
 use App\Models\MaintenanceFee;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
+use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class MaintenanceFeeTable extends LivewireDatatable
 {
@@ -14,10 +15,10 @@ class MaintenanceFeeTable extends LivewireDatatable
 
     public function builder()
     {
-        $farm_ids = [auth()->user()->farm?->id];
+        $farm_ids = auth()->user()->farms->map->id;
 
-        if (auth()->user()->hasRole("hostadmin")) {
-            $farm_ids = auth()->user()->farms->map->id;
+        if (auth()->user()->hasRole(IUserRole::LOCAL_ADMIN)) {
+            $farm_ids = [auth()->user()->farm->id];
         }
 
         return MaintenanceFee::query()->whereMonth("date_of_incident", now()->month)->whereIn("farm_id", $farm_ids);

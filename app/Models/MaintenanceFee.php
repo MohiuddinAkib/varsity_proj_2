@@ -9,7 +9,15 @@ class MaintenanceFee extends Model
 {
     use HasFactory;
 
-    public function farm() {
+    protected $fillable = [
+        "reason",
+        "expense_amount",
+        "farm_id",
+        "date_of_incident",
+    ];
+
+    public function farm()
+    {
         return $this->belongsTo(Farm::class);
     }
 }

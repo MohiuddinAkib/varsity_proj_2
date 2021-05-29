@@ -10,6 +10,8 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class LocalAdminListTable extends LivewireDatatable
 {
+    public $model = User::class;
+
     public function builder()
     {
         $farm_ids = auth()->user()->farms->map->id;
@@ -23,6 +25,7 @@ class LocalAdminListTable extends LivewireDatatable
             Column::name("name")->label("Name"),
             Column::name("farm.name")->label("Farm name"),
             DateColumn::name("join_date")->label("Join Date"),
+            Column::delete(),
         ];
     }
 }

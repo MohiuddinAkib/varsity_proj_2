@@ -21,6 +21,7 @@ class CowRecordCreate extends Component
     private array $cow_types = [ICowService::TYPE_DAIRY, ICowService::TYPE_FATTENING];
 
     public string $dob = "";
+    public array $breeds = [];
     public string $weight = "";
     public string $farm_id = "";
     public string $breed_id = "";
@@ -42,8 +43,13 @@ class CowRecordCreate extends Component
 
     public function mount()
     {
+        $breeds = Breed::all("id", "name")
+            ->mapWithKeys(fn($item) => [$item["id"] => $item["name"]])
+            ->toArray();
+
         $this->fill([
-            "farm_id" => auth()->user()->farm?->id ?? "", // TODO: user er farm na thakle middleware diye prevent krbo
+            "breeds" => $breeds,
+            "breed_id" => array_key_first($breeds),
         ]);
     }
 
@@ -51,9 +57,8 @@ class CowRecordCreate extends Component
     {
 //        $this->authorize("create", Cow::class);
         $this->validate();
-
         try {
-            $cow = Cow::create($this->breed_id, $this->farm_id, $this->gender, $this->description, $this->dob, $this->type);
+            Cow::create($this->breed_id, $this->farm_id, $this->weight, $this->gender, $this->description, $this->dob, $this->type);
             session()->flash("success", "Successfully created organization");
             $this->reset(
                 "breed_id",
@@ -64,28 +69,22 @@ class CowRecordCreate extends Component
                 "dob",
             );
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            dd($e);
             session()->flash("error", "Something went wrong");
         }
     }
 
     public function render()
     {
-        $breeds = Breed::all("id", "name")
-            ->mapWithKeys(fn($item) => [$item["id"] => $item["name"]])
-            ->toArray();
-
-        $this->breed_id = (string)array_key_first($breeds);
-
         $inputs = collect([
             "fields" => [
                 "breed_id" => [
                     "label" => Form::label("Breed"),
-                    "input" => Form::select("breed_id", $breeds, null, ["wire:model" => "breed_id"])
+                    "input" => Form::select("breed_id", $this->breeds, null, ["wire:model" => "breed_id"])
                 ],
                 "weight" => [
                     "label" => Form::label("Weight"),
-                    "input" => Form::number("weight", $this->weight, ["wire:model" => "weight", "min" => 1])
+                    "input" => Form::number("weight", null, ["wire:model" => "weight", "min" => 1])
                 ],
                 "type" => [
                     "label" => Form::label("Type"),
@@ -97,11 +96,11 @@ class CowRecordCreate extends Component
                 ],
                 "description" => [
                     "label" => Form::label("Description"),
-                    "input" => Form::textarea("description", $this->description, ["wire:model" => "description"])
+                    "input" => Form::textarea("description", null, ["wire:model" => "description"])
                 ],
                 "dob" => [
                     "label" => Form::label("Date of birth"),
-                    "input" => Form::date("dob", $this->dob, ["wire:model" => "dob"])
+                    "input" => Form::date("dob", null, ["wire:model" => "dob"])
                 ],
             ],
             "form_bottom_buttons" => [

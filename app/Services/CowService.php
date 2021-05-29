@@ -11,17 +11,15 @@ use Illuminate\Support\Facades\Validator;
 
 class CowService implements ICowService
 {
-    public function create(int $breed_id, int $farm_id, string $gender, string $description, string $dob, string $type): Cow
+    public function create(int $breed_id, int $farm_id, int $weight, string $gender, string $description, string $dob, string $type): Cow
     {
-        $input = compact("description", "breed_id", "farm_id", "dob", "gender", "type");
+        $input = compact("weight","description", "breed_id", "farm_id", "dob", "gender", "type");
         return Cow::create($input);
     }
 
     public function update(int $cow_id, int $breed_id, int $farm_id, string $gender, string $description, string $dob, string $type): Cow
     {
         $input = compact("description", "breed_id", "farm_id", "dob", "gender", "type");
-
-        dd($input);
 
         $cow = Cow::findOrFail($cow_id);
         $cow->update($input);

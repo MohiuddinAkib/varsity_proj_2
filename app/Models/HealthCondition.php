@@ -9,7 +9,14 @@ class HealthCondition extends Model
 {
     use HasFactory;
 
-    public function cow() {
+    protected $fillable = [
+        "cow_id",
+        "condition",
+        "note",
+    ];
+
+    public function cow()
+    {
         return $this->belongsTo(Cow::class);
     }
 }

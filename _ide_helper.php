@@ -16248,10 +16248,10 @@
          *
          * @static 
          */ 
-        public static function create($breed_id, $farm_id, $gender, $description, $dob, $type)
+        public static function create($breed_id, $farm_id, $weight, $gender, $description, $dob, $type)
         {
                         /** @var \App\Services\CowService $instance */
-                        return $instance->create($breed_id, $farm_id, $gender, $description, $dob, $type);
+                        return $instance->create($breed_id, $farm_id, $weight, $gender, $description, $dob, $type);
         }
                     /**
          * 
@@ -16295,20 +16295,20 @@
          *
          * @static 
          */ 
-        public static function createLocalAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address, $farm_id, $salary_figure)
+        public static function createLocalAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address, $farm_id, $salary_figure, $join_date)
         {
                         /** @var \App\Services\UserService $instance */
-                        return $instance->createLocalAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address, $farm_id, $salary_figure);
+                        return $instance->createLocalAdmin($name, $email, $password, $contact_number, $permanent_address, $current_address, $farm_id, $salary_figure, $join_date);
         }
                     /**
          * 
          *
          * @static 
          */ 
-        public static function createEmployee($name, $contact_number, $permanent_address, $current_address, $position, $farm_id, $salary_figure)
+        public static function createEmployee($name, $contact_number, $permanent_address, $current_address, $position, $farm_id, $salary_figure, $join_date)
         {
                         /** @var \App\Services\UserService $instance */
-                        return $instance->createEmployee($name, $contact_number, $permanent_address, $current_address, $position, $farm_id, $salary_figure);
+                        return $instance->createEmployee($name, $contact_number, $permanent_address, $current_address, $position, $farm_id, $salary_figure, $join_date);
         }
          
     }

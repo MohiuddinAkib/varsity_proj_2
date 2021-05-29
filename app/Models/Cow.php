@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,13 +16,15 @@ class Cow extends Model
     protected $dates = ["dob"];
 
     protected $fillable = [
-        "name",
-        "extras",
+        "breed_id",
+        "farm_id",
+        "weight",
+        "type",
+        "gender",
         "description",
         "dob",
-        "farm_id",
-        "breed_id",
-        "gender",
+        "is_marked_for_sale",
+        "is_sold",
     ];
 
     public function breed()
@@ -44,7 +47,7 @@ class Cow extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $model->name = IdGenerator::generate(['table' => $this->table, 'length' => 10, 'prefix' => "COW-"]);
+            $model->name = Str::uuid();
         });
     }
 }

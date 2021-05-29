@@ -23,7 +23,9 @@
 
     <body class="font-sans antialiased">
         <main class="min-h-screen bg-gray-100 flex flex-col">
-            @include('layouts.navigation')
+            @auth
+                @include('layouts.navigation')
+            @endauth
 
             <div class="flex-grow w-4/5 mx-auto pt-8">
                 {{ $slot }}

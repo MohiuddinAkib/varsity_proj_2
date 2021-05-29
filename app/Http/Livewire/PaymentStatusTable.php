@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Carbon\Carbon;
 use App\Models\Farm;
 use App\Models\Payment;
+use App\Contract\IUserRole;
 use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -14,6 +15,8 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class PaymentStatusTable extends LivewireDatatable
 {
+    public $model = Payment::class;
+
     public $exportable = true;
 
     public $afterTableSlot = 'components.selected';
@@ -21,6 +24,10 @@ class PaymentStatusTable extends LivewireDatatable
     public function builder()
     {
         $farm_ids = auth()->user()->farms->map->id;
+
+        if (auth()->user()->hasRole(IUserRole::LOCAL_ADMIN)) {
+            $farm_ids = [auth()->user()->farm->id];
+        }
 
         return Payment::query()
             ->whereMonth("payment_date", now()->month)
@@ -59,6 +66,7 @@ class PaymentStatusTable extends LivewireDatatable
             Column::name("payment_bonus_reason")
                 ->label("Payment bonus reason")
                 ->truncate(),
+            Column::delete()
         ];
     }
 

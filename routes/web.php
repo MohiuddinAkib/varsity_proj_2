@@ -26,8 +26,12 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 Route::get('/payment', \App\Http\Livewire\PaymentStatusList::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:hostadmin|localadmin"])
     ->name('payment.index');
+
+Route::get('/payment-create', \App\Http\Livewire\PaymentStatusCreate::class)
+    ->middleware(["auth", "role:localadmin"])
+    ->name('payment.create');
 
 Route::get('/cow-create', \App\Http\Livewire\CowRecordCreate::class)
     ->middleware(["auth", "role:localadmin"])
@@ -38,16 +42,24 @@ Route::get('/cow', \App\Http\Livewire\CowRecordList::class)
     ->name('cow.index');
 
 Route::get('/maintenanace', \App\Http\Livewire\MaintenanceFeeList::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:hostadmin|localadmin"])
     ->name('maintenance_fee.index');
+
+Route::get('/maintenanace-create', \App\Http\Livewire\MaintenanceFeeCreate::class)
+    ->middleware(["auth", "role:localadmin"])
+    ->name('maintenance_fee.create');
 
 Route::get('/worker_status', \App\Http\Livewire\WorkerStatusList::class)
     ->middleware(["auth"])
     ->name('worker_status.index');
 
 Route::get('/health_condition', \App\Http\Livewire\HealthConditionList::class)
-    ->middleware(["auth"])
+    ->middleware(["auth", "role:localadmin|hostadmin"])
     ->name('health_condition.index');
+
+Route::get('/health_condition-create', \App\Http\Livewire\HealthConditionCreate::class)
+    ->middleware(["auth", "role:localadmin"])
+    ->name('health_condition.create');
 
 Route::get('/farm', \App\Http\Livewire\FarmList::class)
     ->middleware(["auth", "role:hostadmin"])
@@ -69,6 +81,9 @@ Route::get('/hostadmin-create', \App\Http\Livewire\HostAdminCreate::class)
 Route::get('/localadmin', \App\Http\Livewire\LocalAdminList::class)
     ->middleware(["auth", "role:hostadmin"])
     ->name('localadmin.index');
+
+Route::get('/buy-zone', \App\Http\Livewire\BuyZone::class)
+    ->name('buy_zone.index');
 
 Route::get('/localadmin-create', \App\Http\Livewire\LocalAdminCreate::class)
     ->middleware(["auth", "role:hostadmin"])

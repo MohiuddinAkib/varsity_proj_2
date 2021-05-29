@@ -76,7 +76,7 @@ class LocalAdminCreate extends Component
             "fields" => [
                 "name" => [
                     "label" => Form::label("Name"),
-                    "input" => Form::text("name", $this->name, ["wire:model" => "name"])
+                    "input" => Form::text("name", $this->name, ["wire:model" => "name"]),
                 ],
                 "email" => [
                     "label" => Form::label("Email Address"),
@@ -121,7 +121,7 @@ class LocalAdminCreate extends Component
         ];
 
         return view('livewire.local-admin-create', [
-            "inputs" => $inputs
+            "inputs" => $inputs,
         ]);
     }
 }

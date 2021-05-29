@@ -25,6 +25,8 @@ class FarmFactory extends Factory
         return [
             "name" => $this->faker->company,
             "location" => $this->faker->address,
+            "latitude" => $this->faker->latitude(),
+            "longitude" => $this->faker->longitude(),
             "contact_number" => $this->faker->phoneNumber,
             "establish_date" => $this->faker->dateTimeBetween(),
         ];

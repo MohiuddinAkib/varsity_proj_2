@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Cow;
 use Carbon\Carbon;
+use App\Models\Cow;
+use App\Contract\IUserRole;
+use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -16,6 +18,10 @@ class CowRecordTable extends LivewireDatatable
     public function builder()
     {
         $farm_ids = auth()->user()->farms->map->id;
+
+        if (auth()->user()->hasRole(IUserRole::LOCAL_ADMIN)) {
+            $farm_ids = [auth()->user()->farm->id];
+        }
 
         return Cow::query()->whereIn("farm_id", $farm_ids);
     }
@@ -45,6 +51,10 @@ class CowRecordTable extends LivewireDatatable
             Column::name("gender")
                 ->label("Gender")
                 ->filterable(),
+            BooleanColumn::name("is_marked_for_sale")
+                ->label("Marked for sale"),
+            BooleanColumn::name("is_sold")
+                ->label("Sold"),
             DateColumn::callback(["dob"], function ($dob) {
                 $dob = Carbon::parse($dob);
                 $age = $dob->diff(now())->format("%y years, %m months and %d days");
@@ -54,7 +64,27 @@ class CowRecordTable extends LivewireDatatable
             Column::name("description")
                 ->label("Description")
                 ->truncate(30),
-            Column::delete()
+            Column::callback(['id', 'name', "is_sold", "is_marked_for_sale"], function ($id, $name, $is_sold, $is_marked_for_sale) {
+                return view('cow-record-table-actions', compact('id', 'name', "is_sold", "is_marked_for_sale"));
+            })
         ];
+    }
+
+    public function markForSale(int $id)
+    {
+        $cow = Cow::findOrFail($id);
+
+        $cow->is_marked_for_sale = !$cow->is_marked_for_sale;
+
+        $cow->save();
+    }
+
+    public function markSold(int $id)
+    {
+        $cow = Cow::findOrFail($id);
+
+        $cow->is_sold = !$cow->is_sold;
+
+        $cow->save();
     }
 }
