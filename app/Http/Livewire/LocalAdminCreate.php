@@ -71,6 +71,7 @@ class LocalAdminCreate extends Component
     {
         $farm_list = Farm::whereOwnerId(auth()->id())->get();
         $farm_list = $farm_list->mapWithKeys(fn($item) => [$item["id"] => $item["name"]])->toArray();
+        $this->farm_id = array_key_first($farm_list);
 
         $inputs = [
             "fields" => [

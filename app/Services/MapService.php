@@ -32,14 +32,12 @@ class MapService implements IMapService
 
     public function search_nearby_veterinaries(int $radius, int $latitude, int $longitude)
     {
-        $response = Http::get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json", [
+        $response = Http::get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", [
             "radius" => $radius,
+            "rankby" => "distance",
             "key" => $this->api_token,
-            "location" => "{$latitude}, {$longitude}",
-            "inputtype" => "textquery",
-            "locationbias" => [
-                "circle:" => "{$radius}@{$latitude}{$longitude}"
-            ]
+            "location" => "{$latitude},{$longitude}",
+            "type" => IMapService::PLACE_TYPE_VETERIANRY,
         ])
             ->throw();
 
