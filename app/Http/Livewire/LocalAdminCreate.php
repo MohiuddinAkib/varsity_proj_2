@@ -45,8 +45,9 @@ class LocalAdminCreate extends Component
     {
 //        $this->authorize();
         $this->validate();
-        if (!is_null($this->farm_id)) {
+        if (is_null($this->farm_id)) {
             session()->flash("error", "You have no farm. Create a farm first");
+            return;
         }
 
         try {
