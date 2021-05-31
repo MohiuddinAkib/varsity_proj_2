@@ -47,9 +47,12 @@ class CowRecordCreate extends Component
             ->mapWithKeys(fn($item) => [$item["id"] => $item["name"]])
             ->toArray();
 
+        $farm_id = auth()->user()->farm->id;
+
         $this->fill([
             "breeds" => $breeds,
             "breed_id" => array_key_first($breeds),
+            "farm_id" => $farm_id
         ]);
     }
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CowService implements ICowService
 {
-    public function create(int $breed_id, string|int $farm_id, int $weight, string $gender, string $description, string $dob, string $type): Cow
+    public function create(int $breed_id, int $farm_id, int $weight, string $gender, string $description, string $dob, string $type): Cow
     {
         $input = compact("weight","description", "breed_id", "farm_id", "dob", "gender", "type");
         return Cow::create($input);
