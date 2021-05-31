@@ -17,7 +17,7 @@ class LocalAdminCreate extends Component
 
     public string $name = "";
     public string $email = "";
-    public string $farm_id = "";
+    public ?string $farm_id = "";
     public string $password = "";
     public int $salary_figure = 0;
     public string $join_date = "";
@@ -45,6 +45,9 @@ class LocalAdminCreate extends Component
     {
 //        $this->authorize();
         $this->validate();
+        if (!is_null($this->farm_id)) {
+            session()->flash("error", "You have no farm. Create a farm first");
+        }
 
         try {
             User::createLocalAdmin($this->name, $this->email, $this->password, $this->contact_number, $this->permanent_address, $this->current_address, $this->farm_id, $this->salary_figure, $this->join_date);
