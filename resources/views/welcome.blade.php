@@ -38,7 +38,7 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    WELCOME TO ADHUNIK KHAMAR
+                    WELCOME TO {{ strtoupper(config("app.name")) }}
                 </div>
 
                 <a href="{{ route('buy_zone.index') }}">Visit buy zoe</a>

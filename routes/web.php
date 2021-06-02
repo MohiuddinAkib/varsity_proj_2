@@ -93,4 +93,12 @@ Route::get('/search-veterinary', \App\Http\Livewire\SearchVeterianry::class)
     ->middleware(["auth", "role:localadmin"])
     ->name('search_veterianry.index');
 
+Route::get('/emplyee', \App\Http\Livewire\EmployeeList::class)
+    ->middleware(["auth", "role:localadmin"])
+    ->name('employee.index');
+
+Route::get('/emplyee-create', \App\Http\Livewire\EmployeeCreate::class)
+    ->middleware(["auth", "role:localadmin"])
+    ->name('employee.create');
+
 

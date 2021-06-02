@@ -20,6 +20,10 @@
                     <x-nav-link :href="route('search_veterianry.index')" :active="request()->routeIs('search_veterianry.index')">
                         {{ __('Search Veterinary') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('employee.index')" :active="request()->routeIs('employee.index')">
+                        {{ __('Employee Record') }}
+                    </x-nav-link>
                     @endrole
 
 
