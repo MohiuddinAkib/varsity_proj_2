@@ -74,7 +74,6 @@ class EmployeeCreate extends Component
 
     public function render()
     {
-
         $inputs = [
             "fields" => [
                 "name" => [

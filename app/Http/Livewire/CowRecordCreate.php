@@ -20,6 +20,7 @@ class CowRecordCreate extends Component
     private array $cow_genders = [ICowService::MALE, ICowService::FEMALE];
     private array $cow_types = [ICowService::TYPE_DAIRY, ICowService::TYPE_FATTENING];
 
+    public string $price = "";
     public string $dob = "";
     public array $breeds = [];
     public string $weight = "";
@@ -38,7 +39,18 @@ class CowRecordCreate extends Component
             "type" => ["string", "required", Rule::in($this->cow_types)],
             "breed_id" => ["string", "required", "exists:App\Models\Breed,id"],
             "gender" => ["string", "required", Rule::in($this->cow_genders)],
+            "price" => ["numeric", "required", "min:0"],
         ];
+    }
+
+    public function updatedPrice($value)
+    {
+
+        $numeric_value = (int)$value;
+
+        if ($numeric_value < 0) {
+            $this->price = 0;
+        }
     }
 
     public function mount()
@@ -61,7 +73,7 @@ class CowRecordCreate extends Component
 //        $this->authorize("create", Cow::class);
         $this->validate();
         try {
-            Cow::create($this->breed_id, $this->farm_id, $this->weight, $this->gender, $this->description, $this->dob, $this->type);
+            Cow::create($this->breed_id, $this->farm_id, $this->weight, $this->gender, $this->description, $this->dob, $this->type, $this->price);
             session()->flash("success", "Successfully created organization");
             $this->reset(
                 "breed_id",
@@ -104,6 +116,10 @@ class CowRecordCreate extends Component
                 "dob" => [
                     "label" => Form::label("Date of birth"),
                     "input" => Form::date("dob", null, ["wire:model" => "dob"])
+                ],
+                "price" => [
+                    "label" => Form::label("Price"),
+                    "input" => Form::number("price", null, ["wire:model" => "price", "min" => 0])
                 ],
             ],
             "form_bottom_buttons" => [

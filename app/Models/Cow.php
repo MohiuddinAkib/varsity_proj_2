@@ -25,6 +25,7 @@ class Cow extends Model
         "dob",
         "is_marked_for_sale",
         "is_sold",
+        "price",
     ];
 
     public function breed()
