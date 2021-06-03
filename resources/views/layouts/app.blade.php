@@ -34,7 +34,9 @@
                 style='background-image: url("{{ asset("images/Local Admin.jpg") }}")'
               @endrole
         >
+        @auth
             @include('layouts.navigation')
+        @endauth
             <div class="flex-grow w-4/5 mx-auto pt-8">
                 {{ $slot }}
             </div>

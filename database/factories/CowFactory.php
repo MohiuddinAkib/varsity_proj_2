@@ -36,6 +36,7 @@ class CowFactory extends Factory
             "gender" => $this->faker->randomElement(["male", "female"]),
             "description" => $this->faker->paragraph,
             "dob" => $this->faker->dateTimeBetween(startDate: "-5years"),
+            "price" => $this->faker->randomDigit(),
         ];
     }
 }

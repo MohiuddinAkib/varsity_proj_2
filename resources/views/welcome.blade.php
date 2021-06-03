@@ -19,6 +19,7 @@
                 font-family: 'Nunito';
             }
         </style>
+        <link rel="stylesheet" href="{{ asset("css/app.css") }}">
     </head>
     <body class="antialiased">
     <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0 bg-fixed bg-center bg-cover"
@@ -53,11 +54,11 @@
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 text-5xl text-white font-bold">
                     WELCOME TO {{ strtoupper(config("app.name")) }}
                 </div>
 
-                <a href="{{ route('buy_zone.index') }}">Visit buy zoe</a>
+                <a class="text-white" href="{{ route('buy_zone.index') }}">Visit buy zoe</a>
             </div>
         </div>
     </body>
