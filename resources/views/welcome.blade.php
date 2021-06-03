@@ -21,7 +21,23 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0 bg-fixed bg-center bg-cover"
+         @guest
+         style='background-image: url("{{ asset("images/Home.jpg") }}")'
+         @endguest
+
+         @role("hostadmin")
+            style='background-image: url("{{ asset("images/Host Admin.jpeg") }}")'
+         @endrole
+
+         @role("superadmin")
+            style='background-image: url("{{ asset("images/System Admin.jpg") }}")'
+         @endrole
+
+         @role("localadmin")
+            style='background-image: url("{{ asset("images/Local Admin.jpg") }}")'
+         @endrole
+    >
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
